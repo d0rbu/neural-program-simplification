@@ -1,17 +1,22 @@
-# research-project-template
+# neural-program-simplification
 
-Correctness-first Python boilerplate for research projects.
+Toy research project on simplifying neural tensor programs into sparse,
+interpretable versions that preserve behavior on reference datasets.
 
-The template is intentionally small, but the repo is set up like a real project: `uv`
-for packaging, `ruff` for linting, `ty` for type checking, `pytest` plus coverage and
-Hypothesis for tests, and a docs hierarchy that future contributors and AI agents can
-use as the source of truth.
+The initial research target is conservative: first find transformations that remove
+redundant computation while leaving the model mathematically unchanged on a fixed
+reference dataset. Later phases can study lossy approximations such as replacing SiLU
+with ReLU, pruning near-zero activations or neurons, and introducing sparse surrogate
+subprograms with measured degradation.
+
+No model transformation code exists yet. This repository currently contains the docs,
+tests, and project hygiene needed to start carefully.
 
 ## 1-minute quickstart
 
 ```bash
-git clone https://github.com/d0rbu/research-project-template.git
-cd research-project-template
+git clone https://github.com/d0rbu/neural-program-simplification.git
+cd neural-program-simplification
 uv sync
 uv run pre-commit install
 uv run pre-commit run --all-files
@@ -42,6 +47,7 @@ docs/               project documentation
 
 | You want to... | Read |
 |---|---|
+| Understand the research direction | [`docs/research/agenda.md`](docs/research/agenda.md) |
 | Start developing | [`docs/onboarding/getting-started.md`](docs/onboarding/getting-started.md) |
 | Understand the correctness model | [`docs/development/correctness.md`](docs/development/correctness.md) |
 | Add a new experiment | [`docs/pipelines/experiment-lifecycle.md`](docs/pipelines/experiment-lifecycle.md) |

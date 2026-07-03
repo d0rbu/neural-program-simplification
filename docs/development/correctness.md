@@ -1,6 +1,22 @@
 # Correctness
 
-The template bias is to make bad state unrepresentable.
+The project bias is to make bad state unrepresentable. This matters especially for
+equivalence claims: a transformation should carry the reference dataset, metric, and
+tolerance in typed state rather than loose comments.
+
+## Research Contracts
+
+Exact simplification work should make these states explicit:
+
+- reference dataset identity
+- model or checkpoint identity
+- intervention site
+- equivalence criterion
+- numerical tolerance, if any
+- artifact path for measured evidence
+
+Lossy approximation work should additionally record the degradation metric and the
+accepted tolerance before any behavior-changing transformation is trusted.
 
 ## Phantom Types
 
@@ -9,6 +25,9 @@ Use `phantom-types` when a primitive type is too broad for a domain concept.
 Examples in this repo:
 
 - `Probability`: `float` in `[0, 1]`, demonstrated in `tests/test_correctness_tools.py`
+
+Future project-specific phantom types may include non-empty dataset IDs, finite
+tolerances, positive feature counts, layer indices, and validated intervention IDs.
 
 Pattern:
 

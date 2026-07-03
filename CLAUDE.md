@@ -1,4 +1,4 @@
-# CLAUDE.md - research-project-template
+# CLAUDE.md - neural-program-simplification
 
 Follow [`AGENTS.md`](AGENTS.md) first. It is the source of truth for agent behavior in
 this repository.
@@ -11,6 +11,7 @@ this repository.
 - Use phantom types and runtime validation to make invalid states hard to represent.
 - Add or update property tests when changing invariants.
 - Update docs when file purpose, commands, configuration, or workflow changes.
+- Preserve the research sequence: exact reference-dataset-preserving transformations first, lossy approximations later.
 
 ## Required checks
 

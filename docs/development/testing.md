@@ -42,5 +42,5 @@ uv run pytest -m property
 Coverage is configured in `pyproject.toml` and currently fails below 95%.
 
 Use coverage as a guardrail, not a substitute for meaningful assertions. The most useful
-tests in this template check invariants: probabilities stay in range, weights normalize
+tests in this scaffold check invariants: probabilities stay in range, weights normalize
 to one, and invalid primitive values are rejected before they enter core code.

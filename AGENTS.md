@@ -1,7 +1,7 @@
-# AGENTS.md - research-project-template
+# AGENTS.md - neural-program-simplification
 
-You are working in a correctness-first Python research template. The repo should stay
-small, explicit, and easy to reuse as the base for new research projects.
+You are working in a correctness-first toy research repo about simplifying neural tensor
+programs, especially language models, into sparse and interpretable versions.
 
 This file is the AI-agent entry point. It should point to docs that contain durable
 project knowledge. If you want to add detail here, usually update the linked doc instead.
@@ -10,10 +10,11 @@ project knowledge. If you want to add detail here, usually update the linked doc
 
 - [`README.md`](README.md) - project pitch and quickstart
 - [`docs/README.md`](docs/README.md) - documentation map
+- [`docs/research/agenda.md`](docs/research/agenda.md) - research direction and phases
 - [`docs/onboarding/getting-started.md`](docs/onboarding/getting-started.md) - local setup
 - [`docs/onboarding/workflows.md`](docs/onboarding/workflows.md) - common development flows
 - [`docs/development/correctness.md`](docs/development/correctness.md) - correctness philosophy and tools
-- [`docs/reference/architecture.md`](docs/reference/architecture.md) - package architecture
+- [`docs/reference/architecture.md`](docs/reference/architecture.md) - current scaffold and planned shape
 - [`docs/reference/configuration.md`](docs/reference/configuration.md) - tool configuration
 - [`docs/reference/file-reference.md`](docs/reference/file-reference.md) - file-by-file reference
 
@@ -37,6 +38,9 @@ docs/               source-of-truth documentation
 - Use Hypothesis for invariants, edge cases, and regression tests that should hold over many inputs.
 - Keep imports at the top of each file.
 - Keep docs and code in sync; when behavior changes, update `docs/reference/file-reference.md`.
+- Do not add neural-network transformation code until explicitly asked.
+- For exact-simplification work, treat reference-dataset equivalence as a contract, not a vibe.
+- For lossy work, define the metric, tolerance, and reference dataset before changing behavior.
 
 ## Correctness tools
 
@@ -47,7 +51,7 @@ The scaffold tests demonstrate:
 - property tests that use `st.from_type(...)` with phantom types.
 
 Copy these patterns for project-specific concepts such as dataset splits, feature IDs,
-sample counts, model dimensions, or validated artifact paths.
+intervention sites, equivalence tolerances, model dimensions, or validated artifact paths.
 
 ## Testing
 

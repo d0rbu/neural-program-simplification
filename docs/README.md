@@ -1,7 +1,11 @@
 # Documentation
 
-The docs are the source of truth for this template. Keep top-level files short and
-update these documents when behavior, commands, or layout changes.
+The docs are the source of truth for this project. Keep top-level files short and update
+these documents when behavior, commands, research assumptions, or layout changes.
+
+## Research
+
+- [`research/agenda.md`](research/agenda.md) - project motivation, phases, and non-goals
 
 ## Onboarding
 
@@ -22,6 +26,6 @@ update these documents when behavior, commands, or layout changes.
 
 ## Reference
 
-- [`reference/architecture.md`](reference/architecture.md) - package architecture
+- [`reference/architecture.md`](reference/architecture.md) - current scaffold and planned architecture
 - [`reference/configuration.md`](reference/configuration.md) - tool configuration
 - [`reference/file-reference.md`](reference/file-reference.md) - file-by-file map

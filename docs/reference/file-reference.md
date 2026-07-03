@@ -25,9 +25,10 @@
 | Path | Purpose |
 |---|---|
 | `docs/README.md` | Documentation index |
+| `docs/research/` | Research agenda and project-specific planning docs |
 | `docs/onboarding/` | Setup and day-to-day workflows |
 | `docs/development/` | Correctness and testing guidance |
-| `docs/pipelines/` | Research workflow templates |
+| `docs/pipelines/` | Experiment lifecycle guidance |
 | `docs/reference/` | Architecture, configuration, and file map |
 
 ## CI

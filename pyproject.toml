@@ -1,7 +1,7 @@
 [project]
-name = "research-project-template"
+name = "neural-program-simplification"
 version = "0.1.0"
-description = "Correctness-first Python boilerplate for research projects."
+description = "Toy research project on reference-dataset-preserving neural program simplification."
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 license = "MIT"
