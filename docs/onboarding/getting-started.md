@@ -19,13 +19,6 @@ uv run pre-commit install
 uv run pytest
 ```
 
-Install the optional local model runtime when you need to load and score Hugging Face
-causal language models:
-
-```bash
-uv sync --extra models
-```
-
 ## Daily Commands
 
 ```bash

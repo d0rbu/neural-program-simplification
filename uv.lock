@@ -428,15 +428,11 @@ name = "neural-program-simplification"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "accelerate" },
     { name = "beartype" },
     { name = "jaxtyping" },
     { name = "numpy" },
     { name = "phantom-types", extra = ["hypothesis"] },
-]
-
-[package.optional-dependencies]
-models = [
-    { name = "accelerate" },
     { name = "torch" },
     { name = "transformers" },
 ]
@@ -453,15 +449,14 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "accelerate", marker = "extra == 'models'", specifier = ">=1.12.0" },
+    { name = "accelerate", specifier = ">=1.12.0" },
     { name = "beartype", specifier = ">=0.22.0" },
     { name = "jaxtyping", specifier = ">=0.3.0" },
     { name = "numpy", specifier = ">=2.0.0" },
     { name = "phantom-types", extras = ["hypothesis"], specifier = ">=3.0.0" },
-    { name = "torch", marker = "extra == 'models'", specifier = ">=2.8.0" },
-    { name = "transformers", marker = "extra == 'models'", specifier = ">=4.57.0" },
+    { name = "torch", specifier = ">=2.8.0" },
+    { name = "transformers", specifier = ">=4.57.0" },
 ]
-provides-extras = ["models"]
 
 [package.metadata.requires-dev]
 dev = [

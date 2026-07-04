@@ -1,8 +1,8 @@
 # Task Datasets
 
-Task datasets are the first reusable experiment substrate. They store prompts where the
-final token is the model's task answer, then score that held-out final token with a
-causal language model.
+Task datasets are the first reusable experiment substrate. They store task documents,
+then run those documents through a causal language model while marking which tokens are
+part of the behavior we care about.
 
 ## Dataset Contract
 
@@ -11,81 +11,75 @@ A task dataset is a versioned JSON object:
 ```json
 {
   "schema_version": 1,
-  "dataset_id": "arithmetic-mcq-dev",
   "description": "Multiple-choice arithmetic prompts.",
-  "metadata": {"split": "dev"},
-  "examples": [
+  "documents": [
     {
-      "id": "mcq-0001",
-      "prompt": "Question: 2+2?\nA. 3\nB. 4\nRESPONSE: B",
-      "answer_text": " B",
-      "metadata": {"kind": "multiple-choice"}
+      "text": "Question: 2+2?\nA. 3\nB. 4\nRESPONSE: B"
+    },
+    {
+      "text": "Alice gave the book to Bob. The indirect object is Bob",
+      "behavior_token_indices": [9]
     }
   ]
 }
 ```
 
-The raw JSON contract is tokenizer-independent:
+The raw JSON shape is simple:
 
-- `dataset_id` and every example `id` are non-empty.
-- `examples` is non-empty.
-- example ids are unique.
-- `prompt` is non-empty and must end with `answer_text`.
-- `answer_text` is non-empty.
+- `documents` is non-empty.
+- each document `text` is non-empty.
+- `behavior_token_indices`, when present, is a non-empty list of unique non-negative
+  token indices.
 
-The tokenizer-specific contract is checked separately with
-`validate_task_dataset_tokenization(dataset, tokenizer)`:
+When `behavior_token_indices` is omitted, tokenization defaults the behavior mask to the
+final token in the document. When it is present, indices refer to positions in the full
+tokenized document produced by the chosen Hugging Face tokenizer, so those indices are
+validated during tokenization.
 
-- `answer_text` must encode to exactly one token with `add_special_tokens=False`.
-- the encoded prompt's final token id must equal that answer token id.
-- the prompt must contain at least one context token before the answer token.
+## Tokenization
 
-This keeps stored task datasets portable while making the model/tokenizer identity an
-explicit part of any scored result.
+`tokenize_task_dataset(dataset, tokenizer)` tokenizes the whole document once with a
+`transformers.PreTrainedTokenizerBase`. It does not separately tokenize an answer suffix,
+because suffix tokenization can differ from tokenization inside the full prompt.
+
+The tokenized result stores:
+
+- `input_ids`: `Int64[torch.Tensor, "tokens"]`
+- `behavior_mask`: `Bool[torch.Tensor, "tokens"]`
+
+Behavior token index `0` is rejected for causal LM loss, because token `i` is scored from
+the model logits at position `i - 1`.
 
 ## Model Execution
 
-`run_task_dataset(tokenized_dataset, model)` treats the final prompt token as the task
-answer. It feeds each prefix, excluding that answer token, into a `NextTokenModel` and
-records the model's next-token logits for the answer.
+`run_task_dataset(dataset, model, tokenizer)` accepts a raw Hugging Face
+`PreTrainedModel` and `PreTrainedTokenizerBase`. It tokenizes the dataset, pads documents,
+runs the model, and returns:
 
-Each `TaskPrediction` records:
+- `input_ids`: `Int64[torch.Tensor, "batch tokens"]`
+- `attention_mask`: `Bool[torch.Tensor, "batch tokens"]`
+- `behavior_mask`: `Bool[torch.Tensor, "batch tokens"]`
+- `logits`: `Float[torch.Tensor, "batch tokens vocab"]`
+- `per_token_loss`: `Float[torch.Tensor, "batch tokens"]`
 
-- the example id
-- the answer token id
-- the top predicted token id
-- answer and predicted logits
-- answer log probability
-- answer rank, with rank `1` meaning no token has a larger logit
-
-`TaskRun.top1_accuracy` is a convenience summary over the scored examples. It is not an
-equivalence or simplification metric by itself.
+`TaskRun.mean_behavior_loss` averages only the selected behavior-token losses. It is a
+measurement helper, not an equivalence or simplification metric by itself.
 
 ## Hugging Face Loader
 
-The optional Hugging Face adapter starts with `Qwen/Qwen3.5-0.8B` as the default local
-model id:
+The Hugging Face loader starts with `Qwen/Qwen3.5-0.8B` as the default local model id:
 
 ```python
 from neural_program_simplification import (
     load_huggingface_causal_lm,
     load_task_dataset,
     run_task_dataset,
-    validate_task_dataset_tokenization,
 )
 
 dataset = load_task_dataset("datasets/arithmetic-mcq-dev.json")
-bundle = load_huggingface_causal_lm(device="cuda")
-tokenized = validate_task_dataset_tokenization(dataset, bundle.tokenizer)
-task_run = run_task_dataset(tokenized, bundle)
+loaded = load_huggingface_causal_lm(device="cuda")
+task_run = run_task_dataset(dataset, loaded.model, loaded.tokenizer)
 ```
 
-Install the optional runtime before loading real models:
-
-```bash
-uv sync --extra models
-```
-
-The adapter is intentionally narrow. It only exposes the next-token scoring surface
-needed by task datasets; later tracing work should add activation hooks without changing
-the dataset contract.
+The loader is intentionally thin: it returns the raw Hugging Face model and tokenizer in
+a small dataclass, and model execution works directly against Hugging Face base classes.

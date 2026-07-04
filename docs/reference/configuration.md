@@ -13,12 +13,6 @@ uv add numpy
 uv add --dev pytest
 ```
 
-Optional local model execution dependencies live in the `models` extra:
-
-```bash
-uv sync --extra models
-```
-
 ## Linting
 
 `ruff` is configured for Python 3.13 with common correctness-oriented rule families:

@@ -11,10 +11,6 @@ dependencies = [
     "jaxtyping>=0.3.0",
     "numpy>=2.0.0",
     "phantom-types[hypothesis]>=3.0.0",
-]
-
-[project.optional-dependencies]
-models = [
     "accelerate>=1.12.0",
     "torch>=2.8.0",
     "transformers>=4.57.0",

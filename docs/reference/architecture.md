@@ -6,14 +6,15 @@ source package contains reusable experiment infrastructure, not model transforma
 ## Scaffold
 
 The importable package exists because the first concrete experiment needs reusable code
-for loading task datasets, validating answer-token placement, and scoring prompts with
-causal language models.
+for loading task datasets, tokenizing task documents, marking behavior tokens, and
+running causal language models.
 
 | Module | Purpose |
 |---|---|
-| `neural_program_simplification.task_datasets` | Versioned task-dataset storage, prompt/answer phantom types, tokenizer validation, and JSON load/save helpers |
-| `neural_program_simplification.model_execution` | Generic next-token model protocol and task-dataset scoring results |
-| `neural_program_simplification.huggingface` | Lazy optional Hugging Face adapter for local causal LM loading |
+| `neural_program_simplification.types` | Shared domain types such as `NonEmptyStr`, `TaskText`, and `ModelId` |
+| `neural_program_simplification.task_datasets` | Versioned task-document storage and JSON load/save helpers |
+| `neural_program_simplification.model_execution` | Hugging Face tokenizer/model execution helpers, Torch tensor batches, behavior masks, and masked causal LM loss |
+| `neural_program_simplification.huggingface` | Thin Hugging Face causal LM loader |
 | `tests/test_correctness_tools.py` | Executable examples for phantom types, runtime checks, array contracts, and property tests |
 
 ## Planned Shape

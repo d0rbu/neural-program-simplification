@@ -34,7 +34,7 @@ uv run pre-commit run --all-files
 | Tests | `pytest`, `pytest-cov`, `hypothesis` |
 | Runtime contracts | `phantom-types`, `beartype` |
 | Array shape/dtype checks | `jaxtyping` |
-| Optional model runtime | `transformers`, `torch`, `accelerate` via `uv sync --extra models` |
+| Model runtime | `transformers`, `torch`, `accelerate` |
 | Agent guidance | `AGENTS.md`, `CLAUDE.md` |
 
 ## Repo layout
