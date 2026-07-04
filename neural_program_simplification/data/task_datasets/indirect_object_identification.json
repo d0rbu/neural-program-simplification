@@ -1,0 +1,18 @@
+{
+  "description": "Indirect-object identification prompts with the referenced name as the final behavior token.",
+  "documents": [
+    {
+      "text": "Read the sentence and name the indirect object.\nSentence: Alice gave the book to Bob.\nIndirect object: Bob"
+    },
+    {
+      "text": "Read the sentence and name the indirect object.\nSentence: Maria sent the letter to Daniel.\nIndirect object: Daniel"
+    },
+    {
+      "text": "Read the sentence and name the indirect object.\nSentence: Priya handed the keys to Omar.\nIndirect object: Omar"
+    },
+    {
+      "text": "Read the sentence and name the indirect object.\nSentence: Liam showed the picture to Nora.\nIndirect object: Nora"
+    }
+  ],
+  "schema_version": 1
+}

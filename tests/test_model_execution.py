@@ -306,6 +306,9 @@ def test_masked_next_token_loss_rejects_bad_shapes() -> None:
             t.zeros((1, 1), dtype=t.bool),
         )
 
+    with pytest.raises(ValueError, match="select at least one"):
+        masked_next_token_loss(logits, input_ids, t.tensor([[False, False]], dtype=t.bool))
+
     with pytest.raises(ValueError, match="token 0"):
         masked_next_token_loss(logits, input_ids, t.tensor([[True, False]], dtype=t.bool))
 

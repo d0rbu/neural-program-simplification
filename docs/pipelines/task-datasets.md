@@ -83,3 +83,29 @@ task_run = run_task_dataset(dataset, loaded.model, loaded.tokenizer)
 
 The loader is intentionally thin: it returns the raw Hugging Face model and tokenizer in
 a small dataclass, and model execution works directly against Hugging Face base classes.
+
+## Built-In Starter Datasets
+
+The package includes small, hand-authored starter datasets for early experiments:
+
+- `arithmetic_multiple_choice`
+- `factual_recall`
+- `indirect_object_identification`
+- `python_code_completion`
+- `sentiment_classification`
+- `translation_en_fr`
+
+Load them through the registry:
+
+```python
+from neural_program_simplification import (
+    builtin_task_dataset_names,
+    load_builtin_task_dataset,
+)
+
+for name in builtin_task_dataset_names():
+    dataset = load_builtin_task_dataset(name)
+```
+
+These are not benchmark claims. They are compact smoke-test datasets that exercise
+different task formats while staying easy to inspect and version-control.

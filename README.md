@@ -35,6 +35,7 @@ uv run pre-commit run --all-files
 | Runtime contracts | `phantom-types`, `beartype` |
 | Array shape/dtype checks | `jaxtyping` |
 | Model runtime | `transformers`, `torch`, `accelerate` |
+| Starter task datasets | packaged JSON task documents under `neural_program_simplification/data/task_datasets/` |
 | Agent guidance | `AGENTS.md`, `CLAUDE.md` |
 
 ## Repo layout

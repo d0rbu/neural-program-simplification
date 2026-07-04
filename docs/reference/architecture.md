@@ -13,6 +13,7 @@ running causal language models.
 |---|---|
 | `neural_program_simplification.types` | Shared domain types such as `NonEmptyStr`, `TaskText`, and `ModelId` |
 | `neural_program_simplification.task_datasets` | Versioned task-document storage and JSON load/save helpers |
+| `neural_program_simplification.task_dataset_library` | Enumerates and loads packaged starter task datasets |
 | `neural_program_simplification.model_execution` | Hugging Face tokenizer/model execution helpers, Torch tensor batches, behavior masks, and masked causal LM loss |
 | `neural_program_simplification.huggingface` | Thin Hugging Face causal LM loader |
 | `tests/test_correctness_tools.py` | Executable examples for phantom types, runtime checks, array contracts, and property tests |
