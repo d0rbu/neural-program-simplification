@@ -4,7 +4,8 @@ All tool configuration lives in `pyproject.toml`.
 
 ## Package Management
 
-Use `uv`.
+Use `uv`. The project installs the local `neural_program_simplification` package in
+editable mode during `uv sync`.
 
 ```bash
 uv sync
@@ -66,8 +67,7 @@ uv run ty check
 ## Testing
 
 `pytest` collects from `tests/`, runs with strict config and strict markers, and reports
-coverage for the scaffold tests. When the project adds real source modules, update
-`tool.coverage.run.source` and the `--cov` target.
+coverage for `neural_program_simplification/` and `tests/`.
 
 Run:
 
