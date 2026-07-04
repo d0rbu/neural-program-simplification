@@ -24,7 +24,7 @@ these documents when behavior, commands, research assumptions, or layout changes
 - [`pipelines/experiment-lifecycle.md`](pipelines/experiment-lifecycle.md) - a reusable
   lifecycle for research experiments
 - [`pipelines/task-datasets.md`](pipelines/task-datasets.md) - task-prompt dataset
-  format, tokenization checks, and model scoring flow
+  format, built-in starter datasets, tokenization checks, and model scoring flow
 
 ## Reference
 

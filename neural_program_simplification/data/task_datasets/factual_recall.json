@@ -1,0 +1,18 @@
+{
+  "description": "Hand-authored synthetic short factual recall prompts whose expected answer is the final token.",
+  "documents": [
+    {
+      "text": "Answer the factual question with one word.\nQuestion: What is the capital of France?\nAnswer: Paris"
+    },
+    {
+      "text": "Answer the factual question with one word.\nQuestion: Which planet is known as the Red Planet?\nAnswer: Mars"
+    },
+    {
+      "text": "Answer the factual question with one word.\nQuestion: What gas do plants absorb from the air?\nAnswer: carbon"
+    },
+    {
+      "text": "Answer the factual question with one word.\nQuestion: What is the largest ocean on Earth?\nAnswer: Pacific"
+    }
+  ],
+  "schema_version": 1
+}

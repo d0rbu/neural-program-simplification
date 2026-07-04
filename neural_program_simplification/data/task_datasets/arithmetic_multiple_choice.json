@@ -1,0 +1,18 @@
+{
+  "description": "Hand-authored synthetic multiple-choice arithmetic questions with the answer choice as the final behavior token.",
+  "documents": [
+    {
+      "text": "Solve the problem and answer with A, B, C, or D.\nQuestion: 7 + 5 = ?\nA. 10\nB. 11\nC. 12\nD. 13\nAnswer: C"
+    },
+    {
+      "text": "Solve the problem and answer with A, B, C, or D.\nQuestion: 9 - 4 = ?\nA. 3\nB. 4\nC. 5\nD. 6\nAnswer: C"
+    },
+    {
+      "text": "Solve the problem and answer with A, B, C, or D.\nQuestion: 6 * 3 = ?\nA. 12\nB. 15\nC. 18\nD. 21\nAnswer: C"
+    },
+    {
+      "text": "Solve the problem and answer with A, B, C, or D.\nQuestion: 20 / 5 = ?\nA. 2\nB. 3\nC. 4\nD. 5\nAnswer: C"
+    }
+  ],
+  "schema_version": 1
+}

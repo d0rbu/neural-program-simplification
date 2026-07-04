@@ -1,0 +1,18 @@
+{
+  "description": "Hand-authored synthetic IOI-style sentence completions with the indirect object's name as the final behavior token.",
+  "documents": [
+    {
+      "text": "Alice and Bob were sorting books in the library, and Alice gave the heavy atlas to Bob"
+    },
+    {
+      "text": "Maria and Daniel checked the mailbox together before Maria sent the invitation to Daniel"
+    },
+    {
+      "text": "Priya and Omar walked into the office after Priya handed the spare keys to Omar"
+    },
+    {
+      "text": "Liam and Nora looked through the album, and Liam showed the old picture to Nora"
+    }
+  ],
+  "schema_version": 1
+}

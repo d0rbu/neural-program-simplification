@@ -24,6 +24,13 @@ from neural_program_simplification.model_execution import (
     tokenize_task_dataset,
     tokenize_task_document,
 )
+from neural_program_simplification.task_dataset_library import (
+    BUILTIN_TASK_DATASET_NAMES,
+    builtin_task_dataset_names,
+    builtin_task_dataset_resource,
+    iter_builtin_task_datasets,
+    load_builtin_task_dataset,
+)
 from neural_program_simplification.task_datasets import (
     TaskDataset,
     TaskDocument,
@@ -46,6 +53,7 @@ __all__ = [
     "BatchTokenIds",
     "BatchTokenMask",
     "BehaviorMask",
+    "BUILTIN_TASK_DATASET_NAMES",
     "LoadedCausalLM",
     "ModelId",
     "NonEmptyStr",
@@ -58,8 +66,12 @@ __all__ = [
     "TokenizationError",
     "TokenizedTaskDataset",
     "TokenizedTaskDocument",
+    "builtin_task_dataset_names",
+    "builtin_task_dataset_resource",
     "collate_task_dataset",
+    "iter_builtin_task_datasets",
     "load_huggingface_causal_lm",
+    "load_builtin_task_dataset",
     "load_task_dataset",
     "masked_next_token_loss",
     "parse_model_id",

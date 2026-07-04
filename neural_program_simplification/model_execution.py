@@ -228,20 +228,23 @@ def masked_next_token_loss(
         raise ValueError("behavior_mask must match input_ids")
     if logits.shape[1] < 2:
         raise ValueError("at least two tokens are required for causal LM loss")
+    if not bool(t.any(behavior_mask).item()):
+        raise ValueError("behavior_mask must select at least one token")
     if bool(t.any(behavior_mask[:, 0]).item()):
         raise ValueError("behavior_mask cannot select token 0 for causal LM loss")
 
     shifted_logits = logits[:, :-1, :]
     shifted_targets = input_ids[:, 1:]
-    shifted_loss = F.cross_entropy(
-        shifted_logits.reshape(-1, shifted_logits.shape[-1]),
-        shifted_targets.reshape(-1),
+    shifted_behavior_mask = behavior_mask[:, 1:]
+    selected_loss = F.cross_entropy(
+        shifted_logits[shifted_behavior_mask],
+        shifted_targets[shifted_behavior_mask],
         reduction="none",
-    ).reshape_as(shifted_targets)
+    )
 
     per_token_loss = t.zeros(input_ids.shape, dtype=logits.dtype, device=logits.device)
-    per_token_loss[:, 1:] = shifted_loss
-    return per_token_loss.masked_fill(~behavior_mask, 0.0)
+    per_token_loss[:, 1:][shifted_behavior_mask] = selected_loss
+    return per_token_loss
 
 
 @beartype

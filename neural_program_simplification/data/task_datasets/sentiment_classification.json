@@ -1,0 +1,18 @@
+{
+  "description": "Hand-authored synthetic binary sentiment classification prompts ending with the sentiment label.",
+  "documents": [
+    {
+      "text": "Classify the review sentiment as positive or negative.\nReview: The meal was fresh, warm, and carefully prepared.\nSentiment: positive"
+    },
+    {
+      "text": "Classify the review sentiment as positive or negative.\nReview: The package arrived broken and the instructions were missing.\nSentiment: negative"
+    },
+    {
+      "text": "Classify the review sentiment as positive or negative.\nReview: The support team answered quickly and solved the problem.\nSentiment: positive"
+    },
+    {
+      "text": "Classify the review sentiment as positive or negative.\nReview: The app crashed twice and lost my saved work.\nSentiment: negative"
+    }
+  ],
+  "schema_version": 1
+}

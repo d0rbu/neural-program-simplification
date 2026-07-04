@@ -1,0 +1,30 @@
+{
+  "description": "Hand-authored synthetic augmented IOI-style sentence completions with varied narrative formats.",
+  "documents": [
+    {
+      "text": "Jordan and Riley visited the post office after Jordan mailed the bright postcard to Riley"
+    },
+    {
+      "text": "Mina saw Caleb waiting by the lockers, so Mina quietly passed the folded note to Caleb"
+    },
+    {
+      "text": "Sofia and Mateo set the table before Sofia baked the chocolate cake for Mateo"
+    },
+    {
+      "text": "Avery and Quinn studied the trail markers while Avery showed the folded map to Quinn"
+    },
+    {
+      "text": "Nina and Theo watched the rain start, and Nina lent the blue umbrella to Theo"
+    },
+    {
+      "text": "Harper noticed Lena standing in the aisle, then Harper offered the empty seat to Lena"
+    },
+    {
+      "text": "Oscar and Maya walked past the market before Oscar bought the red scarf for Maya"
+    },
+    {
+      "text": "Grace and Ethan practiced after school until Grace taught the new song to Ethan"
+    }
+  ],
+  "schema_version": 1
+}

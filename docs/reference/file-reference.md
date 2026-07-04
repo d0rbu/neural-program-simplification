@@ -21,8 +21,10 @@
 | `neural_program_simplification/__init__.py` | Public exports for experiment infrastructure |
 | `neural_program_simplification/types.py` | Shared phantom types for non-empty strings, model ids, and task text |
 | `neural_program_simplification/task_datasets.py` | Task-document domain types and JSON storage |
+| `neural_program_simplification/task_dataset_library.py` | Built-in task dataset registry and loaders |
 | `neural_program_simplification/model_execution.py` | Hugging Face tokenization, Torch tensor batching, behavior masks, and masked causal LM loss |
 | `neural_program_simplification/huggingface.py` | Thin Hugging Face causal-LM loader |
+| `neural_program_simplification/data/task_datasets/*.json` | Packaged starter task datasets |
 
 ## Tests
 
@@ -30,6 +32,7 @@
 |---|---|
 | `tests/test_correctness_tools.py` | Phantom type, runtime check, array contract, and property-test examples |
 | `tests/test_task_datasets.py` | Task-dataset storage tests |
+| `tests/test_builtin_task_datasets.py` | Built-in dataset registry, default-tokenizer compatibility, and fake-model execution tests |
 | `tests/test_model_execution.py` | Tokenization, behavior-mask, batching, and masked-loss tests |
 
 ## Docs
