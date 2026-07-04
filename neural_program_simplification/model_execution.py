@@ -16,6 +16,7 @@ TokenIds = Int64[t.Tensor, "tokens"]
 BatchTokenIds = Int64[t.Tensor, "batch tokens"]
 BatchLogits = Float[t.Tensor, "batch tokens vocab"]
 BehaviorMask = Bool[t.Tensor, "tokens"]
+BatchTokenMask = Bool[t.Tensor, "batch tokens"]
 BatchBehaviorMask = Bool[t.Tensor, "batch tokens"]
 BatchLoss = Float[t.Tensor, "batch tokens"]
 
@@ -67,7 +68,7 @@ class TaskBatch:
     """Padded model inputs for a tokenized task dataset."""
 
     input_ids: BatchTokenIds
-    attention_mask: BatchBehaviorMask
+    valid_token_mask: BatchTokenMask
     behavior_mask: BatchBehaviorMask
 
     def __post_init__(self) -> None:
@@ -75,12 +76,12 @@ class TaskBatch:
             raise ValueError("input_ids must have shape batch x tokens")
         if self.input_ids.dtype != t.long:
             raise ValueError("input_ids must use torch.long dtype")
-        if self.attention_mask.shape != self.input_ids.shape:
-            raise ValueError("attention_mask must match input_ids shape")
+        if self.valid_token_mask.shape != self.input_ids.shape:
+            raise ValueError("valid_token_mask must match input_ids shape")
         if self.behavior_mask.shape != self.input_ids.shape:
             raise ValueError("behavior_mask must match input_ids shape")
-        if self.attention_mask.dtype != t.bool:
-            raise ValueError("attention_mask must use torch.bool dtype")
+        if self.valid_token_mask.dtype != t.bool:
+            raise ValueError("valid_token_mask must use torch.bool dtype")
         if self.behavior_mask.dtype != t.bool:
             raise ValueError("behavior_mask must use torch.bool dtype")
 
@@ -125,18 +126,22 @@ def _model_logits(outputs: Any) -> t.Tensor:
     return logits
 
 
-def _behavior_indices_for_document(document: TaskDocument, token_count: int) -> tuple[int, ...]:
-    if document.behavior_token_indices is None:
-        behavior_token_indices = (token_count - 1,)
-    else:
-        behavior_token_indices = tuple(document.behavior_token_indices)
+def _validate_behavior_token_index(index: int, token_count: int) -> None:
+    if index >= token_count:
+        raise TokenizationError("behavior token index is outside the tokenized document")
+    if index == 0:
+        raise TokenizationError("behavior token index 0 cannot be scored by a causal LM")
 
-    for index in behavior_token_indices:
-        if index >= token_count:
-            raise TokenizationError("behavior token index is outside the tokenized document")
-        if index == 0:
-            raise TokenizationError("behavior token index 0 cannot be scored by a causal LM")
-    return behavior_token_indices
+
+def _set_behavior_mask(document: TaskDocument, behavior_mask: BehaviorMask) -> None:
+    if document.behavior_token_indices is None:
+        behavior_mask[-1] = True
+        return
+
+    token_count = behavior_mask.numel()
+    for index in document.behavior_token_indices:
+        _validate_behavior_token_index(index, token_count)
+        behavior_mask[index] = True
 
 
 @beartype
@@ -154,7 +159,7 @@ def tokenize_task_document(
     )
     input_ids = encoded["input_ids"][0].to(device=device, dtype=t.long)
     behavior_mask = t.zeros_like(input_ids, dtype=t.bool)
-    behavior_mask[list(_behavior_indices_for_document(document, input_ids.numel()))] = True
+    _set_behavior_mask(document, behavior_mask)
 
     return TokenizedTaskDocument(
         document=document,
@@ -195,18 +200,18 @@ def collate_task_dataset(
     device = dataset.documents[0].input_ids.device
 
     input_ids = t.full((batch_size, max_tokens), pad_token_id, dtype=t.long, device=device)
-    attention_mask = t.zeros((batch_size, max_tokens), dtype=t.bool, device=device)
+    valid_token_mask = t.zeros((batch_size, max_tokens), dtype=t.bool, device=device)
     behavior_mask = t.zeros((batch_size, max_tokens), dtype=t.bool, device=device)
 
     for row_index, document in enumerate(dataset.documents):
         token_count = document.input_ids.numel()
         input_ids[row_index, :token_count] = document.input_ids
-        attention_mask[row_index, :token_count] = True
+        valid_token_mask[row_index, :token_count] = True
         behavior_mask[row_index, :token_count] = document.behavior_mask
 
     return TaskBatch(
         input_ids=input_ids,
-        attention_mask=attention_mask,
+        valid_token_mask=valid_token_mask,
         behavior_mask=behavior_mask,
     )
 
@@ -260,7 +265,7 @@ def run_task_dataset(
     batch = collate_task_dataset(tokenized, pad_token_id=_pad_token_id(tokenizer))
 
     with t.inference_mode():
-        outputs = model(input_ids=batch.input_ids, attention_mask=batch.attention_mask)
+        outputs = model(input_ids=batch.input_ids, attention_mask=batch.valid_token_mask)
 
     logits = _model_logits(outputs)
     per_token_loss = masked_next_token_loss(logits, batch.input_ids, batch.behavior_mask)

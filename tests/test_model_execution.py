@@ -205,7 +205,7 @@ def test_tokenize_and_collate_task_dataset() -> None:
         [10, 11, 12, 0, 0],
         [20, 21, 22, 23, 24],
     ]
-    assert batch.attention_mask.tolist() == [
+    assert batch.valid_token_mask.tolist() == [
         [True, True, True, False, False],
         [True, True, True, True, True],
     ]
@@ -227,42 +227,42 @@ def test_task_batch_validates_shapes_and_dtypes() -> None:
     with pytest.raises(ValueError, match="batch x tokens"):
         TaskBatch(
             input_ids=t.tensor([1, 2], dtype=t.long),
-            attention_mask=t.tensor([True, True]),
+            valid_token_mask=t.tensor([True, True]),
             behavior_mask=t.tensor([False, True]),
         )
 
     with pytest.raises(ValueError, match="torch.long"):
         TaskBatch(
             input_ids=t.tensor([[1.0, 2.0]]),
-            attention_mask=bool_mask,
+            valid_token_mask=bool_mask,
             behavior_mask=bool_mask,
         )
 
-    with pytest.raises(ValueError, match="attention_mask"):
+    with pytest.raises(ValueError, match="valid_token_mask"):
         TaskBatch(
             input_ids=input_ids,
-            attention_mask=t.tensor([[True]], dtype=t.bool),
+            valid_token_mask=t.tensor([[True]], dtype=t.bool),
             behavior_mask=bool_mask,
         )
 
     with pytest.raises(ValueError, match="behavior_mask"):
         TaskBatch(
             input_ids=input_ids,
-            attention_mask=bool_mask,
+            valid_token_mask=bool_mask,
             behavior_mask=t.tensor([[False]], dtype=t.bool),
         )
 
-    with pytest.raises(ValueError, match="attention_mask.*torch.bool"):
+    with pytest.raises(ValueError, match="valid_token_mask.*torch.bool"):
         TaskBatch(
             input_ids=input_ids,
-            attention_mask=t.tensor([[1, 1]], dtype=t.long),
+            valid_token_mask=t.tensor([[1, 1]], dtype=t.long),
             behavior_mask=bool_mask,
         )
 
     with pytest.raises(ValueError, match="behavior_mask.*torch.bool"):
         TaskBatch(
             input_ids=input_ids,
-            attention_mask=bool_mask,
+            valid_token_mask=bool_mask,
             behavior_mask=t.tensor([[0, 1]], dtype=t.long),
         )
 

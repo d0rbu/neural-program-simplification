@@ -57,7 +57,7 @@ the model logits at position `i - 1`.
 runs the model, and returns:
 
 - `input_ids`: `Int64[torch.Tensor, "batch tokens"]`
-- `attention_mask`: `Bool[torch.Tensor, "batch tokens"]`
+- `valid_token_mask`: `Bool[torch.Tensor, "batch tokens"]`
 - `behavior_mask`: `Bool[torch.Tensor, "batch tokens"]`
 - `logits`: `Float[torch.Tensor, "batch tokens vocab"]`
 - `per_token_loss`: `Float[torch.Tensor, "batch tokens"]`
