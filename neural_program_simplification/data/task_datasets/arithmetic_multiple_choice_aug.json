@@ -1,0 +1,30 @@
+{
+  "description": "Hand-authored synthetic augmented arithmetic prompts with varied multiple-choice formats.",
+  "documents": [
+    {
+      "text": "Pick the correct option.\n7 + 8 = ?\n(A) 13\n(B) 14\n(C) 15\n(D) 16\nCorrect option: C"
+    },
+    {
+      "text": "MATH QUIZ | 18 - 6 | choices: A=10, B=11, C=12, D=13 | answer=C"
+    },
+    {
+      "text": "Return only the letter for the true equation.\nA. 4 * 4 = 12\nB. 4 * 4 = 14\nC. 4 * 4 = 16\nD. 4 * 4 = 18\nLetter: C"
+    },
+    {
+      "text": "{\"task\":\"arithmetic\",\"question\":\"21 / 7\",\"choices\":{\"A\":\"2\",\"B\":\"3\",\"C\":\"4\",\"D\":\"5\"},\"answer\":\"B\"}"
+    },
+    {
+      "text": "Teacher: Which answer is right for 13 + 9?\nStudent choices -> A:20 / B:21 / C:22 / D:23\nStudent final: C"
+    },
+    {
+      "text": "Compute, then choose.\nproblem: 5 squared\noptions:\n- A 20\n- B 25\n- C 30\n- D 35\nfinal=B"
+    },
+    {
+      "text": "Arithmetic check: 30 - 17 equals [A] 11 [B] 12 [C] 13 [D] 14. Response: C"
+    },
+    {
+      "text": "One-step arithmetic multiple choice\nExpression: 3 * (2 + 4)\nA) 12\nB) 15\nC) 18\nD) 21\nAnswer choice: C"
+    }
+  ],
+  "schema_version": 1
+}

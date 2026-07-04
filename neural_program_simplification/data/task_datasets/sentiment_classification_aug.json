@@ -1,0 +1,30 @@
+{
+  "description": "Hand-authored synthetic augmented sentiment prompts with varied review and label formats.",
+  "documents": [
+    {
+      "text": "Review sentiment? \"The headphones sound clear and feel comfortable.\" Label: positive"
+    },
+    {
+      "text": "Classify as POS or NEG.\nText: The charger stopped working after one day.\nClass: NEG"
+    },
+    {
+      "text": "{\"review\":\"The hotel room was spotless and quiet.\",\"sentiment\":\"positive\"}"
+    },
+    {
+      "text": "A customer writes: I waited an hour and the order was still wrong.\nOverall tone -> negative"
+    },
+    {
+      "text": "Sentiment classification\nInput: The lesson was clear, useful, and engaging.\nOutput: positive"
+    },
+    {
+      "text": "Does this sound favorable? The screen cracked during normal use.\nAnswer: no"
+    },
+    {
+      "text": "Binary label for the note below:\n\"Fast delivery, careful packaging, exactly as described.\"\nlabel=positive"
+    },
+    {
+      "text": "Mood of review: The update deleted my settings and made the app slower. Sentiment=negative"
+    }
+  ],
+  "schema_version": 1
+}

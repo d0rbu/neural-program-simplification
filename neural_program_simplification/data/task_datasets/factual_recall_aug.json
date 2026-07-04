@@ -1,0 +1,30 @@
+{
+  "description": "Hand-authored synthetic augmented factual recall prompts with varied question styles.",
+  "documents": [
+    {
+      "text": "Flashcard front: The capital city of Japan.\nFlashcard back: Tokyo"
+    },
+    {
+      "text": "Complete the fact.\nThe chemical symbol for gold is: Au"
+    },
+    {
+      "text": "Q: Which ocean lies between Africa and Australia?\nA: Indian"
+    },
+    {
+      "text": "{\"question\":\"What instrument has keys, hammers, and strings?\",\"answer\":\"piano\"}"
+    },
+    {
+      "text": "Trivia round\nPrompt: The author of Hamlet was William ____.\nCompletion: Shakespeare"
+    },
+    {
+      "text": "Answer in one word only.\nLargest planet in the Solar System -> Jupiter"
+    },
+    {
+      "text": "Knowledge check: water freezes at 0 degrees on the Celsius scale. Scale: Celsius"
+    },
+    {
+      "text": "Fill in the blank: A young dog is called a ____.\nFilled blank: puppy"
+    }
+  ],
+  "schema_version": 1
+}

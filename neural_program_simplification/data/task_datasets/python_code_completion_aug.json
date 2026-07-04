@@ -1,0 +1,30 @@
+{
+  "description": "Hand-authored synthetic augmented Python code-completion prompts with varied snippets.",
+  "documents": [
+    {
+      "text": "Complete this Python expression:\nvalues = [1, 2, 3]\nresult = sum(values)"
+    },
+    {
+      "text": "Fill the missing return value.\ndef is_even(n):\n    return n % 2 == 0"
+    },
+    {
+      "text": "Python REPL task:\n>>> name = 'Ada'\n>>> name.lower()\n'ada'"
+    },
+    {
+      "text": "Finish the function with the correct literal.\ndef always_true():\n    return True"
+    },
+    {
+      "text": "Code completion\nitems = []\nitems.append('x')\nlen(items)\n# => 1"
+    },
+    {
+      "text": "Complete the final token in this indexing example.\nletters = ['a', 'b', 'c']\nlast = letters[-1]"
+    },
+    {
+      "text": "Tiny Python dict lookup:\nages = {'Mia': 7}\nage = ages['Mia']"
+    },
+    {
+      "text": "Complete the boolean expression.\ntext = 'hello'\nanswer = text.startswith('he')"
+    }
+  ],
+  "schema_version": 1
+}

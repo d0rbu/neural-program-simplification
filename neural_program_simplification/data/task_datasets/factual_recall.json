@@ -1,5 +1,5 @@
 {
-  "description": "Short factual recall questions whose expected answer is the final token.",
+  "description": "Hand-authored synthetic short factual recall prompts whose expected answer is the final token.",
   "documents": [
     {
       "text": "Answer the factual question with one word.\nQuestion: What is the capital of France?\nAnswer: Paris"

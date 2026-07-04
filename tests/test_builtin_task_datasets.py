@@ -70,11 +70,17 @@ def test_builtin_dataset_names_are_unique_sorted_and_present() -> None:
     assert len(set(names)) == len(names)
     assert set(names) == {
         "arithmetic_multiple_choice",
+        "arithmetic_multiple_choice_aug",
         "factual_recall",
+        "factual_recall_aug",
         "indirect_object_identification",
+        "indirect_object_identification_aug",
         "python_code_completion",
+        "python_code_completion_aug",
         "sentiment_classification",
+        "sentiment_classification_aug",
         "translation_en_fr",
+        "translation_en_fr_aug",
     }
 
 
@@ -98,12 +104,15 @@ def test_builtin_dataset_json_is_canonical_and_loadable(name: str) -> None:
     assert isinstance(raw, dict)
     assert raw["schema_version"] == 1
     assert raw["description"].strip()
-    assert len(raw["documents"]) == 4
+    expected_document_count = 8 if name.endswith("_aug") else 4
+    assert len(raw["documents"]) == expected_document_count
 
     dataset = load_builtin_task_dataset(name)
 
     assert isinstance(dataset, TaskDataset)
     assert dataset.to_json_dict() == raw
+    assert dataset.description is not None
+    assert "Hand-authored synthetic" in dataset.description
     assert all(document.behavior_token_indices is None for document in dataset.documents)
     assert all(str(document.text).strip() == str(document.text) for document in dataset.documents)
 
@@ -164,14 +173,62 @@ def test_builtin_datasets_cover_distinct_task_families() -> None:
 
     expected_keywords = {
         "arithmetic_multiple_choice": "arithmetic",
+        "arithmetic_multiple_choice_aug": "arithmetic",
         "factual_recall": "factual",
-        "indirect_object_identification": "Indirect-object",
+        "factual_recall_aug": "factual",
+        "indirect_object_identification": "IOI-style",
+        "indirect_object_identification_aug": "IOI-style",
         "python_code_completion": "Python",
+        "python_code_completion_aug": "Python",
         "sentiment_classification": "sentiment",
+        "sentiment_classification_aug": "sentiment",
         "translation_en_fr": "translation",
+        "translation_en_fr_aug": "translation",
     }
     for name, keyword in expected_keywords.items():
         assert keyword in descriptions[name]
+
+
+@pytest.mark.parametrize(
+    "name",
+    tuple(name for name in BUILTIN_TASK_DATASET_NAMES if name.endswith("_aug")),
+)
+def test_augmented_builtin_datasets_have_varied_prompt_formats(name: str) -> None:
+    dataset = load_builtin_task_dataset(name)
+    texts = [str(document.text) for document in dataset.documents]
+
+    assert len(texts) == 8
+    assert len(set(texts)) == len(texts)
+    if name == "indirect_object_identification_aug":
+        assert all("\n" not in text for text in texts)
+        assert len({text.split()[0] for text in texts}) == len(texts)
+    else:
+        assert any("\n" in text for text in texts)
+        assert any(separator in text for text in texts for separator in ("|", "=>", "->", "=", "{"))
+
+
+def test_ioi_builtin_datasets_are_sentence_completions_not_qa_prompts() -> None:
+    forbidden_fragments = (
+        "Answer:",
+        "answer",
+        "Question:",
+        "question",
+        "Recipient:",
+        "recipient",
+        "Indirect object:",
+        "indirect object",
+        "Name:",
+        "Who ",
+        "Identify",
+        "Choose",
+    )
+
+    for name in ("indirect_object_identification", "indirect_object_identification_aug"):
+        dataset = load_builtin_task_dataset(name)
+        for document in dataset.documents:
+            text = str(document.text)
+            assert "\n" not in text
+            assert all(fragment not in text for fragment in forbidden_fragments)
 
 
 def test_builtin_task_dataset_loader_rejects_non_object_resource(monkeypatch) -> None:

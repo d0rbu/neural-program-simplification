@@ -12,11 +12,17 @@ _TASK_DATASET_PACKAGE = "neural_program_simplification.data.task_datasets"
 
 BUILTIN_TASK_DATASET_NAMES = (
     "arithmetic_multiple_choice",
+    "arithmetic_multiple_choice_aug",
     "factual_recall",
+    "factual_recall_aug",
     "indirect_object_identification",
+    "indirect_object_identification_aug",
     "python_code_completion",
+    "python_code_completion_aug",
     "sentiment_classification",
+    "sentiment_classification_aug",
     "translation_en_fr",
+    "translation_en_fr_aug",
 )
 
 

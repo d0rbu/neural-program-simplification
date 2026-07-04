@@ -1,5 +1,5 @@
 {
-  "description": "English-to-French single-word translation prompts ending with the translated word.",
+  "description": "Hand-authored synthetic English-to-French single-word translation prompts ending with the translated word.",
   "documents": [
     {
       "text": "Translate the English word into French.\nEnglish: cat\nFrench: chat"

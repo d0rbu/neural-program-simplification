@@ -1,0 +1,30 @@
+{
+  "description": "Hand-authored synthetic augmented English-to-French translation prompts with varied formats.",
+  "documents": [
+    {
+      "text": "Translate to French.\nEnglish word: dog\nFrench word: chien"
+    },
+    {
+      "text": "Mini glossary entry | blue -> bleu"
+    },
+    {
+      "text": "{\"source_language\":\"English\",\"target_language\":\"French\",\"source\":\"water\",\"target\":\"eau\"}"
+    },
+    {
+      "text": "Complete the pair:\nEnglish: green\nFrench: vert"
+    },
+    {
+      "text": "Vocabulary quiz. Translate \"sun\" into French. Answer: soleil"
+    },
+    {
+      "text": "EN to FR\nmilk\n=> lait"
+    },
+    {
+      "text": "What is the French word for night?\nResponse: nuit"
+    },
+    {
+      "text": "Dictionary card\nfront: apple\nback: pomme"
+    }
+  ],
+  "schema_version": 1
+}

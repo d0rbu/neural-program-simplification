@@ -1,5 +1,5 @@
 {
-  "description": "Binary sentiment classification prompts ending with the sentiment label.",
+  "description": "Hand-authored synthetic binary sentiment classification prompts ending with the sentiment label.",
   "documents": [
     {
       "text": "Classify the review sentiment as positive or negative.\nReview: The meal was fresh, warm, and carefully prepared.\nSentiment: positive"

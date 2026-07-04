@@ -1,5 +1,5 @@
 {
-  "description": "Small Python completion prompts where the final token completes the code.",
+  "description": "Hand-authored synthetic small Python completion prompts where the final token completes the code.",
   "documents": [
     {
       "text": "Complete the Python function.\ndef identity(value):\n    return value"

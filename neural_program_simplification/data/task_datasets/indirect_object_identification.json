@@ -1,17 +1,17 @@
 {
-  "description": "Indirect-object identification prompts with the referenced name as the final behavior token.",
+  "description": "Hand-authored synthetic IOI-style sentence completions with the indirect object's name as the final behavior token.",
   "documents": [
     {
-      "text": "Read the sentence and name the indirect object.\nSentence: Alice gave the book to Bob.\nIndirect object: Bob"
+      "text": "Alice and Bob were sorting books in the library, and Alice gave the heavy atlas to Bob"
     },
     {
-      "text": "Read the sentence and name the indirect object.\nSentence: Maria sent the letter to Daniel.\nIndirect object: Daniel"
+      "text": "Maria and Daniel checked the mailbox together before Maria sent the invitation to Daniel"
     },
     {
-      "text": "Read the sentence and name the indirect object.\nSentence: Priya handed the keys to Omar.\nIndirect object: Omar"
+      "text": "Priya and Omar walked into the office after Priya handed the spare keys to Omar"
     },
     {
-      "text": "Read the sentence and name the indirect object.\nSentence: Liam showed the picture to Nora.\nIndirect object: Nora"
+      "text": "Liam and Nora looked through the album, and Liam showed the old picture to Nora"
     }
   ],
   "schema_version": 1
