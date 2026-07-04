@@ -10,7 +10,8 @@ with ReLU, pruning near-zero activations or neurons, and introducing sparse surr
 subprograms with measured degradation.
 
 No model transformation code exists yet. This repository currently contains the docs,
-tests, and project hygiene needed to start carefully.
+tests, project hygiene, and first experiment-infrastructure primitives needed to start
+carefully.
 
 ## 1-minute quickstart
 
@@ -33,11 +34,13 @@ uv run pre-commit run --all-files
 | Tests | `pytest`, `pytest-cov`, `hypothesis` |
 | Runtime contracts | `phantom-types`, `beartype` |
 | Array shape/dtype checks | `jaxtyping` |
+| Optional model runtime | `transformers`, `torch`, `accelerate` via `uv sync --extra models` |
 | Agent guidance | `AGENTS.md`, `CLAUDE.md` |
 
 ## Repo layout
 
 ```
+neural_program_simplification/  reusable experiment infrastructure
 tests/              pytest suite, including property tests
 docs/               project documentation
 .github/workflows/  CI checks

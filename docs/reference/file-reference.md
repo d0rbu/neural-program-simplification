@@ -14,11 +14,22 @@
 | `.gitignore` | Local artifacts excluded from git |
 | `LICENSE` | MIT license |
 
+## Source
+
+| File | Purpose |
+|---|---|
+| `neural_program_simplification/__init__.py` | Public exports for experiment infrastructure |
+| `neural_program_simplification/task_datasets.py` | Task-dataset domain types, JSON storage, and tokenizer validation |
+| `neural_program_simplification/model_execution.py` | Next-token model protocol and task-dataset scoring results |
+| `neural_program_simplification/huggingface.py` | Optional Hugging Face causal-LM loader and adapter |
+
 ## Tests
 
 | File | Purpose |
 |---|---|
 | `tests/test_correctness_tools.py` | Phantom type, runtime check, array contract, and property-test examples |
+| `tests/test_task_datasets.py` | Task-dataset storage and tokenizer-invariant tests |
+| `tests/test_model_execution.py` | Next-token scoring tests with a static model |
 
 ## Docs
 
@@ -29,6 +40,7 @@
 | `docs/onboarding/` | Setup and day-to-day workflows |
 | `docs/development/` | Correctness and testing guidance |
 | `docs/pipelines/` | Experiment lifecycle guidance |
+| `docs/pipelines/task-datasets.md` | Task-dataset format and model execution flow |
 | `docs/reference/` | Architecture, configuration, and file map |
 
 ## CI
